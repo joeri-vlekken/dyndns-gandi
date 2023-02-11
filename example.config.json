@@ -3,10 +3,12 @@
     "username": "",
     "password": ""
   },
-  "gandi": {
-    "token": "",
-    "domain": "",
-    "record": "",
-    "ttl": 300
-  }
+  "gandi": [
+    {
+      "token": "",
+      "domain": "",
+      "record": "",
+      "ttl": 300
+    }
+  ]
 }
