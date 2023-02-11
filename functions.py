@@ -30,7 +30,7 @@ def update_record(
     }
 
     # Update the record
-    print(f'update record: {address}')
+    print(f'update record: {record} at {domain}')
     data = {
         "items": []
     }

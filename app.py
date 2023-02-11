@@ -24,15 +24,18 @@ def update_dns():
 
         # Throw error if neither IPv4 of IPv6 address was delivered
         if not ipv4 and not ipv6:
-            make_response({'msg': 'Provide at least a valid IPv4 or IPv6 address'}, 400)
+            make_response(
+                {'msg': 'Provide at least a valid IPv4 or IPv6 address'}, 400)
 
-        result = update_record(
+        # Update the records for all entries in the config file
+        for record in config_data['gandi']:
+            result = update_record(
                 ipv4,
                 ipv6,
-                config_data['gandi']['token'],
-                config_data['gandi']['domain'],
-                config_data['gandi']['record'],
-                config_data['gandi']['ttl']
+                record['token'],
+                record['domain'],
+                record['record'],
+                record['ttl']
             )
 
         # Confirmation response that the update ended successfully
