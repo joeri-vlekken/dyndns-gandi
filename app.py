@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def update_dns():
-    with open(sys.path[0] + 'config.json') as config_file:
+    with open(sys.path[0] + '/config.json') as config_file:
         config_data = json.load(config_file)
 
     if request.authorization:
