@@ -1,10 +1,9 @@
 {
-  "webhook":
-  {
+  "webhook": {
     "username": "",
     "password": ""
   },
-  "linode": {
+  "gandi": {
     "token": "",
     "domain": "",
     "record": "",
