@@ -11,8 +11,6 @@ def update_dns():
     with open(sys.path[0] + '/config.json') as config_file:
         config_data = json.load(config_file)
 
-    if request.authorization:
-        print(request.authorization)
     # Check for basic authentication headers
     if request.authorization and \
             request.authorization.username == config_data['webhook']['username'] \
@@ -39,7 +37,7 @@ def update_dns():
             )
 
         # Confirmation response that the update ended successfully
-        return make_response({'msg': 'Finished', 'result': {'result': result}}, 200)
+        return make_response({'msg': 'Finished', 'result': result}, 200)
 
     else:
         return make_response({'msg': 'Not authorized'}, 401, {'WWW-Authenticate': 'Basic realm="Login required'})
