@@ -15,7 +15,7 @@ def update_dns():
     if request.authorization and \
             request.authorization.username == config_data['webhook']['username'] \
             and request.authorization.password == config_data['webhook']['password']:
-
+        print(request.args.get('ipv4'))
         # Retrieve the IPv4 and IPv6 address from the get request and validate
         ipv4 = validate_ip(4, request.args.get('ipv4'))
         ipv6 = validate_ip(6, request.args.get('ipv6'))

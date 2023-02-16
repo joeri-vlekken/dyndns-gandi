@@ -31,34 +31,42 @@ def update_record(
 
     # Update the record
     print(f'update record: {record} at {domain}')
-    data = {
-        "items": []
-    }
+    update_list = []
+
     if ipv4:
-        data['items'].append(
+        update_list.append(
             {
-                "rrset_name": record,
-                "rrset_type": "A",
-                "rrset_ttl": 300,
-                "rrset_values": [
-                    str(ipv4)
-                ]
+                "type": "A",
+                "data": {
+                    "rrset_values": [
+                        str(ipv4)
+                    ],
+                    "rrset_ttl": ttl
+                }
             }
         )
     if ipv6:
-        data['items'].append(
+        update_list.append(
             {
-                "rrset_name": record,
-                "rrset_type": "AAAA",
-                "rrset_ttl": 300,
-                "rrset_values": [
-                    str(ipv6)
-                ]
+                "type": "AAAA",
+                "data": {
+                    "rrset_values": [
+                        str(ipv6)
+                    ],
+                    "rrset_ttl": ttl
+                }
             }
         )
-    try:
-        updated_record = requests.put(api_url, headers=headers, json=data)
-    except requests.exceptions.RequestException as e:
-        return {'success': False, 'msg': f'Gandi API error: {str(e)}'}
 
-    return {'success': True, 'msg': updated_record.json()}
+    result = []
+    print(update_list)
+    for update in update_list:
+        try:
+            updated_record = requests.put(
+                f'{api_url}/{update["type"]}', headers=headers, json=update['data'])
+        except requests.exceptions.RequestException as e:
+            result.append(str(e))
+            continue
+        result.append(updated_record.json())
+
+    return result
